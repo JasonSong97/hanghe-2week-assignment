@@ -39,3 +39,15 @@
 - 3. 세번째 업그레이드
   - `같은 사용자가 동일한 특강은 신청 성공 불가`
   - `동일한 유저 정보로 같은 특강 5번 신청 시`, `1번만 성공하는 것`을 검증하는 `통합 테스트 작성`
+
+## API 문서
+- 특강 신청 가능 목록 조회 
+  - GET /lectures
+  - 특강 신청이 가능한 목록을 조회
+  - count가 30미만인 경우
+- 특강 신청 완료 목록 조회 
+  - GET /lectures/{userId}
+  - 특정 userId로 lecture를 조회하고 count가 30인 경우
+  - lectureId, lectureTitle, lectureInstructor
+- 특강 신청 
+  - POST /lecture
