@@ -17,6 +17,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
 
 ---
 spring:
@@ -27,4 +28,8 @@ spring:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: sa
-    password: password
+    password: 
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # 테스트 중 테이블 생성 후 삭제
+    show-sql: true

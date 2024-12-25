@@ -51,3 +51,39 @@
   - lectureId, lectureTitle, lectureInstructor
 - 특강 신청 
   - POST /lecture
+
+# 클린아키텍처
+- controller: 사용자 요청을 처리, 서비스에게 전달
+- service: 비즈니스 로직 처리, facade에게 의존
+- facade: service가 사용하는 비즈니스 레이어 도메인 로직을 조합
+- repository: 인터페이스, 데이터 접근 레이어의 추상화
+- repositoryImpl: 인터페이스 구현체
+- jpa repository: 인프라스트럭처, jpa repositry 상속
+
+## 테스트
+- GET /lectures
+  - 컨트롤러 단위 테스트
+    - [성공] 신청 가능한 목록을 조회하면 신청 가능한 목록을 반환하고 상태코드 200과 상태메세지 OK와 데이터를 반환한다.
+  - 서비스 단위 테스트
+    - [성공] 신청 가능한 목록을 조회하면 신청 가능한 목록을 반환합니다.
+  - 파사드 단위 테스트
+    - [성공] 신청 가능한 목록을 조회하면 신청 가능한 목록을 반환합니다.
+  - 레포지토리 추상체 단위 테스트
+    - 추상체이기 때문에 테스트는 생략합니다.
+  - 레포지토리 구현체 단위 테스트
+    - [성공] 신청 가능한 목록을 조회하면 신청 가능한 목록을 반환합니다.
+  - JPA 레포지토리 인터페이스 단위 테스트
+    - 추상체이기 때문에 테스트는 생략합니다.
+  - 통합 테스트
+    - [성공] 신청 가능한 목록을 조회하면 신청 가능한 목록을 반환합니다.
+
+## 새롭게 알게된 사실
+- Spring Data JPA는 List로 반환하면 null 처리를 하기 때문에, 빈 배열로 반환함. 따라서 따로 null처리 할 필요가 없다.
+- 가장 먼저 레이어별 어떤 역할을 부여할지 스스로 정해야 한다.
+- 비즈니스 로직처리를 꼭 파사드 레이어에서 처리하기 보다는 데이터 필터링의 경우 jpa repositry 레이어에서 처리하면 좋을 것 같다.
+- @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+  - 진짜 Spring Boot 에플리케이션 컨텍스트를 로드하여 통합 테스트 수행한다는 것
+  - 랜덤한 포트에서 애플리케이션이 실행되도록 만듬, 충돌 방지
+- ParameterizedTypeReference의 역할은 제네릭 타입의 HTTP응답을 처리할 때 사용
+- open in view는 데이터베이스 연결 세션이 HTTP 요청부터 응답까지 열려있다는 의미
+- ddl auto를 create-drop으로 설정하면 테이블을 생성 후 삭제한다는 의미
