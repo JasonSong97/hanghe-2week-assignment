@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @RequiredArgsConstructor
 @RestController
-public class LectureController<T> {
+public class LectureController {
     
     private final LectureService lectureService;
 
